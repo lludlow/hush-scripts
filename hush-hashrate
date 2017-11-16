@@ -1,0 +1,5 @@
+#!/bin/bash
+
+hush-cli getmininginfo | jq '.networksolps'
+
+#echo "$(hush-cli getinfo | jq '.difficulty') * .0007158278826666" | bc

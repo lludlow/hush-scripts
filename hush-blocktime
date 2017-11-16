@@ -1,0 +1,24 @@
+#!/bin/bash
+blockfile='/home/MYUSER/tmp/.bitcoinblock'
+blocktime='/home/MYUSER/tmp/.bitcointime'
+blockage='/home/MYUSER/tmp/.bitcoinage'
+
+function getblock {
+	hush-cli getinfo | jq '.blocks'
+}
+
+if [ ! -f ${blockfile} ]; then
+	getblock > ${blockfile}
+	echo "$(date +%s)" > ${blocktime}
+	echo "1" > ${blockage}
+else
+	oldblock="$(cat ${blockfile})"
+	newblock="$(getblock)"
+	if [[ ${oldblock} -ne ${newblock} ]]; then
+		echo "${newblock}" > ${blockfile}
+		echo "$(date +%s) - $(cat ${blocktime})" | bc > ${blockage}
+		echo "$(date +%s)" > ${blocktime}
+	fi
+fi
+
+echo $(cat ${blockage})

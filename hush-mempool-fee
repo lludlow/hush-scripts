@@ -1,0 +1,7 @@
+#!/bin/bash
+
+HUSH=`hush-cli getrawmempool true | grep "\"fee" | awk '{print $3}' | sed -e 's/,//g' | paste -s -d+ - | bc`
+
+result=$(echo $HUSH*1000 | bc)
+
+echo $result

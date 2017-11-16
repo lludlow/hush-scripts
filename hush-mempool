@@ -1,0 +1,3 @@
+#!/bin/bash
+
+hush-cli getmempoolinfo | jq '.bytes'

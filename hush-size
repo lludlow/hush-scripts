@@ -1,0 +1,3 @@
+#!/bin/bash
+
+hush-cli gettxoutsetinfo | jq '.bytes_serialized'
